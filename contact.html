@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    
+body { font-family: Arial, sans-serif; }
+    .hero {
+      background: url('https://t3.ftcdn.net/jpg/09/93/30/42/360_F_993304252_O2IJxntVETePgHQcX9dXxrnryWJ4FM1D.jpg') center/cover no-repeat;
+      height: 90vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    .navbar{
+  background-color: black;
+}
+
+
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -3px 0 5px rgba(0,0,0,0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 1050;
+  }
+
+  .cart-sidebar.open {
+    right: 0;
+  }
+
+    .hero h1 { font-size: 4rem; }
+    .section-padding { padding: 60px 0; }
+    .footer { background: #000000; color: white; padding: 30px 0; }
+    .footer a { color: #ddd; text-decoration: none; }
+    .review-slider .carousel-item { text-align: center; }
+    .search-bar {
+      width: 250px;
+      margin-right: 10px;
+    }
+
+
+
+
+
+
+
+    .wrapper {
+      background-color: #ffffff;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+
+    .banner {
+      background-color: #ffffff;
+      color: rgb(131, 56, 72);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .banner-title {
+      font-size: 36px;
+    }
+
+    .contact-container {
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .input-field {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #271bac;
+      background-color: transparent;
+      padding: 10px 5px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .textarea-field {
+      width: 100%;
+      height: 100px;
+      border: none;
+      border-bottom: 2px solid #007BFF;
+      background-color: transparent;
+      padding: 10px 5px;
+      font-size: 16px;
+      outline: none;
+      resize: vertical;
+    }
+/* button */
+/* Styling for Submit Button */
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Unique Submit Button */
+.submit-button {
+  background: linear-gradient(45deg, #14be2e, #1aae18);
+  color: white;
+  border: 2px solid transparent;
+  padding: 12px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50px; /* Rounded corners */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  letter-spacing: 1px;
+}
+
+/* Hover Effect for Button */
+.submit-button:hover {
+  background: linear-gradient(45deg, #14be2e, #1aae18);
+  transform: translateY(-5px); /* Lift the button on hover */
+  box-shadow: 0 8px 16px rgba(35, 172, 30, 0.2); /* Stronger shadow on hover */
+}
+
+/* Active (Click) Effect */
+.submit-button:active {
+  transform: translateY(0); /* Button comes down when clicked */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .submit-button {
+    padding: 10px 25px; /* Slightly smaller padding on mobile */
+    font-size: 14px; /* Smaller font size on mobile */
+  }
+}
+
+
+
+
+
+
+    /* 👇 Map size increased */
+    .map-container {
+      margin: 40px auto;
+      width: 100%;
+      max-width: 1000px; /* increased from 600px */
+      height: 450px;      /* increased from 300px */
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 600px) {
+      .banner-title {
+        font-size: 28px;
+      }
+
+      .contact-container {
+        padding: 20px;
+      }
+
+      /* Optional: Make map height smaller on small screens */
+      .map-container {
+        height: 300px;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg ">
+  <a class="navbar-brand" href="#"><img src="logo.png" alt="" height="70px" width="70px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <form class="form-inline my-2 my-lg-0 ml-auto">
+      <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav ml-3">
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="#home">Home</a></li>
+      <li class="nav-item"><a class="nav-link"  style="color: white;" href="About.html">About</a></li>
+      <li class="nav-item"><a class="nav-link"  style="color: white;"href="product.html">Products</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="#reviews">Reviews</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="contact.html">Contact</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="query.html">Query</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="gallery.html">Gallery</a></li>
+    <li class="nav-item">
+        <button id="cart-button" class="btn btn-outline-light position-relative" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+        </button>
+        
+        <!-- <button class="btn btn-primary mt-4" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button> -->
+
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cart-sidebar">
+  <h4>Your Cart</h4>
+  <ul class="list-group mb-3" id="cart-items"></ul>
+  <p><strong>Total: RM <span id="cart-total">0.00</span></strong></p>
+  <button class="btn btn-secondary" onclick="toggleCart()">Close</button>
+</div>
+
+  <div class="wrapper">
+
+    <div class="banner">
+      <h1 class="banner-title">Contact Us</h1>
+    </div>
+
+    <div class="contact-container">
+      <div class="form-group">
+        <label for="name" class="label">Name</label>
+        <input type="text" id="name" class="input-field" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="label">Phone Number</label>
+        <input type="tel" id="phone" class="input-field" placeholder="Enter your phone number">
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="label">Email (Optional)</label>
+        <input type="email" id="email" class="input-field" placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="message" class="label">Message</label>
+        <textarea id="message" class="textarea-field" placeholder="Type your message"></textarea>
+      </div>
+      <div class="button-container">
+  <button type="submit" class="submit-button">Submit</button>
+</div>
+
+    </div>
+
+    <div class="map-container">
+      <iframe 
+        class="map-iframe"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14473.889424999723!2d67.03046342142499!3d24.860734597310024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f909f6c0a2d%3A0xdea6fae4c71dce65!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+        allowfullscreen="" 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    
+
+  </div>
+   <!-- Footer -->
+<footer class="footer text-light  pt-5 pb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Star Organic Farm</h5>
+        <p>Delivering pure, organic spices directly from our family farm. Taste the difference of nature.</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="#home" class="text-light">Home</a></li>
+          <li><a href="#about" class="text-light">About</a></li>
+          <li><a href="#products" class="text-light">Products</a></li>
+          <li><a href="#reviews" class="text-light">Reviews</a></li>
+          <li><a href="#contact" class="text-light">Contact</a></li>
+          <li><a href="#query" class="text-light">query</a></li>
+          <li><a href="#gallery" class="text-light">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Contact Info</h6>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt mr-2"></i> Karachi, Pakistan</li>
+          <li><i class="fas fa-envelope mr-2"></i> info@starorganicfarm.com</li>
+          <li><i class="fas fa-phone mr-2"></i> +92 300 1234567</li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Stay Connected</h6>
+        <p>Follow us on social media for updates and special offers:</p>
+        <a href="#" class="text-light mr-3"><i class="fab fa-facebook fa-lg" style=" color: #3b5998; "></i></a>
+        <a href="#" class="text-light mr-3"><i class="fab fa-instagram fa-lg" style="color: #E4405F;"></i></a>
+        <a href="#" class="text-light mr-3"><i class="fab fa-twitter fa-lg" style=" color: #1DA1F2;"></i></a>
+        <a href="#" class="text-light"><i class="fab fa-whatsapp fa-lg" style=" color: #25D366; "></i></a>
+      </div>
+    </div>
+    <hr class="bg-light">
+    <div class="text-center">
+      <small>&copy; 2025 Star Organic Farm. All rights reserved.</small>
+    </div>
+  </div>
+</footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let cartCount = 0;
+    $(document).ready(function() {
+      $('.add-to-cart').click(function() {
+        cartCount++;
+        $('#cart-count').text(cartCount);
+        alert('Item added to cart!');
+      });
+    });
+    
+  </script>
+
+<!-- Scripts -->
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+
+let cart = [];
+ 
+ function updateCartUI() {
+   const cartList = document.getElementById("cart-list");
+   const cartTotal = document.getElementById("cart-total");
+   cartList.innerHTML = "";
+   let total = 0;
+
+   cart.forEach(item => {
+     const li = document.createElement("li");
+     li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+     cartList.appendChild(li);
+     total += item.price;
+   });
+
+   cartTotal.textContent = total.toFixed(2);
+ }
+
+ const buttons = document.querySelectorAll(".add-to-cart-btn");
+ buttons.forEach(btn => {
+   btn.addEventListener("click", () => {
+     const name = btn.getAttribute("data-name");
+     const price = parseFloat(btn.getAttribute("data-price"));
+     cart.push({ name, price });
+     updateCartUI();
+   });
+ });
+ </script>
+  
+ 
+
+ <script>
+   const Cart = [];
+ 
+   function toggleCart() {
+     document.getElementById('cart-sidebar').classList.toggle('open');
+   }
+ 
+   function updateCartDisplay() {
+     const CartItemsContainer = document.getElementById('cart-items');
+     const CartCount = document.getElementById('cart-count');
+     const CartTotal = document.getElementById('cart-total');
+ 
+     CartItemsContainer.innerHTML = '';
+     let total = 0;
+ 
+     Cart.forEach((item, index) => {
+       total += item.price;
+       const li = document.createElement('li');
+       li.className = 'list-group-item d-flex justify-content-between align-items-center';
+       li.innerHTML = `
+         ${item.name} - RM ${item.price.toFixed(2)}
+         <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">×</button>
+       `;
+       CartItemsContainer.appendChild(li);
+     });
+ 
+     CartCount.textContent = cart.length;
+     CartTotal.textContent = total.toFixed(2);
+   }
+ 
+   function removeFromCart(index) {
+     Cart.splice(index, 1);
+     updateCartDisplay();
+   }
+ 
+   // Product Add-to-Cart Button Handler
+   document.querySelectorAll('.add-to-cart').forEach(button => {
+     button.addEventListener('click', function () {
+       const name = this.getAttribute('data-name');
+       const price = parseFloat(this.getAttribute('data-price'));
+       Cart.push({ name, price });
+       updateCartDisplay();
+     });
+   });
+ </script>
+</body>
+</html>
+

@@ -1,0 +1,514 @@
+<var><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Grocery Query Page</title>
+  <style>
+    * {
+  font-style: normal !important;
+} 
+    /* navbar */
+    body { font-family: Arial, sans-serif; }
+    .hero {
+      background: url('https://t3.ftcdn.net/jpg/09/93/30/42/360_F_993304252_O2IJxntVETePgHQcX9dXxrnryWJ4FM1D.jpg') center/cover no-repeat;
+      height: 90vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    .navbar{
+  background-color: black;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -3px 0 5px rgba(0,0,0,0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 1050;
+  }
+
+  .cart-sidebar.open {
+    right: 0;
+  }
+    /* footer */
+    .hero h1 { font-size: 4rem; }
+    .section-padding { padding: 60px 0; }
+    .footer { background: #000000; color: white; padding: 30px 0; }    .footer a { color: #ddd; text-decoration: none; }
+    .review-slider .carousel-item { text-align: center; }
+    .search-bar {
+      width: 250px;
+      margin-right: 10px;
+    }
+    /* foam field */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    .query-header {
+      padding: 40px 20px 10px 20px;
+      text-align: center;
+    }
+
+    .query-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .query-description {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 10px 8px rgba(0,0,0,0.05);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-fullname,
+    .input-email,
+    .input-phone {
+      border: none;
+      border-bottom: 2px solid #007BFF; /* Blue underline */
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 25px;
+      font-weight: bold; /* Bold text */
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-fullname::placeholder,
+    .input-email::placeholder,
+    .input-phone::placeholder {
+      font-weight: bold; /* Bold placeholder text */
+    }
+
+    .input-fullname:focus,
+    .input-email:focus,
+    .input-phone:focus {
+      border-bottom: 2px solid #0056b3; /* Darker blue on focus */
+    }
+
+    @media (max-width: 600px) {
+      .query-title {
+        font-size: 20px;
+      }
+      .query-description {
+        font-size: 14px;
+      }
+    }
+    /* query details */
+    body {
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .query-details-section {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .query-details-heading {
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .query-details-heading .bag-icon {
+      margin-right: 10px;
+      font-size: 22px;
+    }
+
+    .input-order-number,
+    .select-query-type,
+    .textarea-message {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #007BFF;
+      padding: 10px 5px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      outline: none;
+      background-color: transparent;
+    }
+
+    .input-order-number::placeholder,
+    .textarea-message::placeholder {
+      font-weight: bold;
+    }
+
+    .input-order-number:hover::after {
+      content: attr(title);
+    }
+
+    .select-query-type {
+      appearance: none;
+      background-color: transparent;
+      font-weight: bold;
+    }
+
+    /* Tooltip for order number */
+    .tooltip-wrapper {
+      position: relative;
+    }
+
+    .tooltip-wrapper .tooltip-text {
+      visibility: hidden;
+      width: 240px;
+      background-color: #333;
+      color: #fff;
+      text-align: left;
+      padding: 8px;
+      border-radius: 4px;
+      position: absolute;
+      top: -5px;
+      left: 105%;
+      z-index: 1;
+      font-size: 13px;
+    }
+
+    .tooltip-wrapper:hover .tooltip-text {
+      visibility: visible;
+    }
+
+    @media (max-width: 600px) {
+      .query-details-section {
+        margin: 20px 10px;
+      }
+
+      .tooltip-wrapper .tooltip-text {
+        left: 0;
+        top: 105%;
+      }
+    }
+    /* button */
+/* Styling for Submit Button */
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Unique Submit Button */
+.submit-button {
+  background: linear-gradient(45deg, #14be2e, #1aae18);
+  color: white;
+  border: 2px solid transparent;
+  padding: 12px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50px; /* Rounded corners */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  letter-spacing: 1px;
+}
+
+/* Hover Effect for Button */
+.submit-button:hover {
+  background: linear-gradient(45deg, #14be2e, #1aae18);
+  transform: translateY(-5px); /* Lift the button on hover */
+  box-shadow: 0 8px 16px rgba(35, 172, 30, 0.2); /* Stronger shadow on hover */
+}
+
+/* Active (Click) Effect */
+.submit-button:active {
+  transform: translateY(0); /* Button comes down when clicked */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .submit-button {
+    padding: 10px 25px; /* Slightly smaller padding on mobile */
+    font-size: 14px; /* Smaller font size on mobile */
+  }
+}
+
+
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg ">
+  <a class="navbar-brand" href="#"><img src="logo.png" alt="" height="70px" width="70px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <form class="form-inline my-2 my-lg-0 ml-auto">
+      <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav ml-3">
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="#home">Home</a></li>
+      <li class="nav-item"><a class="nav-link"  style="color: white;" href="About.html">About</a></li>
+      <li class="nav-item"><a class="nav-link"  style="color: white;"href="product.html">Products</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="#reviews">Reviews</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="contact.html">Contact</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="query.html">Query</a></li>
+      <li class="nav-item"><a class="nav-link" style="color: white;" href="gallery.html">Gallery</a></li>
+      <li class="nav-item">
+        <button id="cart-button" class="btn btn-outline-light position-relative" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+        </button>
+        
+        <!-- <button class="btn btn-primary mt-4" onclick="toggleCart()">View Cart (<span id="cart-count">0</span>)</button> -->
+
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cart-sidebar">
+  <h4>Your Cart</h4>
+  <ul class="list-group mb-3" id="cart-items"></ul>
+  <p><strong>Total: Rs <span id="cart-total">0.00</span></strong></p>
+  <button class="btn btn-secondary" onclick="toggleCart()">Close</button>
+</div>
+
+
+
+  <div class="query-header">
+    <div class="query-title">Need Help? Submit Your Query</div>
+    <div class="query-description">
+      Have questions about your order, delivery, or products? Fill out the form below and our support team will get in touch with you shortly.
+    </div>
+  </div>
+<!-- foam field -->
+  <div class="form-container">
+    <form>
+      <input type="text" placeholder="Full Name" class="input-fullname" required>
+      <input type="email" placeholder="Email Address" class="input-email" required>
+      <input type="tel" placeholder="Phone Number" class="input-phone">
+    </form>
+  </div>
+</div>
+
+  <div class="query-details-section">
+    <div class="query-details-heading">
+      <span class="bag-icon">👜</span> Query Details
+    </div>
+
+    <form>
+      <!-- Order Number with Tooltip -->
+      <div class="tooltip-wrapper">
+        <input
+          type="text"
+          class="input-order-number"
+          placeholder="Order Number (Optional)"
+        />
+        <div class="tooltip-text">
+          If your query is about a specific order, please enter the order number.
+        </div>
+      </div>
+
+      <!-- Query Type Dropdown -->
+      <select class="select-query-type">
+        <option disabled selected>Select Query Type</option>
+        <option>Missing Items in Order</option>
+        <option>Damaged Product</option>
+        <option>Late Delivery</option>
+        <option>Cancel or Modify Order</option>
+        <option>Payment Issue</option>
+        <option>Product Availability</option>
+        <option>General Inquiry</option>
+      </select>
+
+      <!-- Message Textarea -->
+      <textarea
+        class="textarea-message"
+        rows="5"
+        placeholder="Describe your issue or question here..."
+      ></textarea>
+    </form>
+  </div>
+<div class="button-container">
+  <button type="submit" class="submit-button">Submit</button>
+</div>
+<br>
+<br>
+  <!-- Footer -->
+<footer class="footer text-light  pt-5 pb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Star Organic Farm</h5>
+        <p>Delivering pure, organic spices directly from our family farm. Taste the difference of nature.</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="#home" class="text-light">Home</a></li>
+          <li><a href="#about" class="text-light">About</a></li>
+          <li><a href="#products" class="text-light">Products</a></li>
+          <li><a href="#reviews" class="text-light">Reviews</a></li>
+          <li><a href="#contact" class="text-light">Contact</a></li>
+          <li><a href="#query" class="text-light">query</a></li>
+          <li><a href="#gallery" class="text-light">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Contact Info</h6>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt mr-2"></i> Karachi, Pakistan</li>
+          <li><i class="fas fa-envelope mr-2"></i> info@starorganicfarm.com</li>
+          <li><i class="fas fa-phone mr-2"></i> +92 300 1234567</li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Stay Connected</h6>
+        <p>Follow us on social media for updates and special offers:</p>
+        <a href="#" class="text-light mr-3"><i class="fab fa-facebook fa-lg" style=" color: #3b5998; "></i></a>
+        <a href="#" class="text-light mr-3"><i class="fab fa-instagram fa-lg" style="color: #E4405F;"></i></a>
+        <a href="#" class="text-light mr-3"><i class="fab fa-twitter fa-lg" style=" color: #1DA1F2;"></i></a>
+        <a href="#" class="text-light"><i class="fab fa-whatsapp fa-lg" style=" color: #25D366; "></i></a>
+      </div>
+    </div>
+    <hr class="bg-light">
+    <div class="text-center">
+      <small>&copy; 2025 Star Organic Farm. All rights reserved.</small>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let CartCount = 0;
+    $(document).ready(function() {
+      $('.add-to-cart').click(function() {
+        cartCount++;
+        $('#cart-count').text(CartCount);
+        alert('Item added to cart!');
+      });
+    });
+  </script>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let cartCount = 0;
+  $(document).ready(function() {
+    $('.add-to-cart').click(function() {
+      cartCount++;
+      $('#cart-count').text(cartCount);
+      alert('Item added to cart!');
+    });
+  });
+</script>
+<script>
+  let cart = [];
+
+  function updateCartUI() {
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    cartList.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+      cartList.appendChild(li);
+      total += item.price;
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+  }
+
+  const buttons = document.querySelectorAll(".add-to-cart-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const name = btn.getAttribute("data-name");
+      const price = parseFloat(btn.getAttribute("data-price"));
+      cart.push({ name, price });
+      updateCartUI();
+    });
+  });
+</script>
+
+<script>
+  const Cart = [];
+
+  function toggleCart() {
+    document.getElementById('cart-sidebar').classList.toggle('open');
+  }
+
+  function updateCartDisplay() {
+    const CartItemsContainer = document.getElementById('cart-items');
+    const CartCount = document.getElementById('cart-count');
+    const CartTotal = document.getElementById('cart-total');
+
+    CartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    Cart.forEach((item, index) => {
+      total += item.price;
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-center';
+      li.innerHTML = `
+        ${item.name} - RM ${item.price.toFixed(2)}
+        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">×</button>
+      `;
+      CartItemsContainer.appendChild(li);
+    });
+
+    CartCount.textContent = cart.length;
+    CartTotal.textContent = total.toFixed(2);
+  }
+
+  function removeFromCart(index) {
+    Cart.splice(index, 1);
+    updateCartDisplay();
+  }
+
+  // Product Add-to-Cart Button Handler
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function () {
+      const name = this.getAttribute('data-name');
+      const price = parseFloat(this.getAttribute('data-price'));
+      Cart.push({ name, price });
+      updateCartDisplay();
+    });
+  });
+</script>
+
+
+
+</body>
+</html>
+</var>
